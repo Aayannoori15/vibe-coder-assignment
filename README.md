@@ -1,80 +1,284 @@
-# Wobb Frontend Assignment
+Wobb Frontend Assignment
 
-A starter influencer search application built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. This project is intentionally left in a rough-but-working state for candidates to improve.
+A modern influencer search and profile management application built with React, TypeScript, Vite, and Tailwind CSS. This project enhances the provided starter application by improving the user interface, application architecture, performance, and overall developer experience while implementing the required assignment features.
 
-## Getting Started
+⸻
 
-```bash
+Live Demo
+
+Live URL: https://wobb-assignment.onrender.com
+
+⸻
+
+Tech Stack
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* React Router
+* Zustand
+* (Add any additional libraries you used)
+
+⸻
+
+Features
+
+Dashboard
+
+* Search influencers by username or full name
+* Filter influencers by platform
+* Responsive search experience
+* Improved loading and empty states
+
+Profile Details
+
+* Dedicated profile page for each influencer
+* Enhanced profile layout
+* Better information hierarchy
+* Improved navigation
+
+Shortlist Management
+
+* Add profiles to a shortlist
+* Prevent duplicate entries
+* Remove profiles from the shortlist
+* Persistent shortlist using localStorage
+* Real-time selected profile count
+
+UI/UX Improvements
+
+* Modern responsive interface
+* Improved visual hierarchy
+* Better typography and spacing
+* Mobile-first responsive design
+* Consistent component styling
+* Improved accessibility
+* Smooth interactions and transitions
+
+⸻
+
+Changes Made
+
+1. Bug Fixes
+
+* Fixed intentional bugs throughout the application.
+* Improved search functionality.
+* Fixed filtering issues.
+* Improved routing behavior.
+* Resolved state update inconsistencies.
+* Improved error handling and edge-case management.
+
+⸻
+
+2. UI/UX Redesign
+
+The application interface was completely redesigned to provide a more polished and modern user experience.
+
+Improvements include:
+
+* Redesigned dashboard layout
+* Improved profile cards
+* Responsive layouts for all screen sizes
+* Better spacing and typography
+* Consistent color palette
+* Enhanced navigation
+* Improved loading, empty, and error states
+
+⸻
+
+3. State Management
+
+Replaced the original React Context implementation with Zustand.
+
+Benefits include:
+
+* Simpler state management
+* Better scalability
+* Reduced unnecessary re-renders
+* Cleaner architecture
+* Persistent state using localStorage
+
+⸻
+
+4. Profile Shortlist Feature
+
+Implemented the complete “Add to List” functionality.
+
+Features include:
+
+* Add profiles to shortlist
+* Prevent duplicate entries
+* Remove profiles
+* Persistent storage
+* Responsive shortlist panel
+* Empty state handling
+
+⸻
+
+5. Code Quality Improvements
+
+Refactored the project to improve maintainability.
+
+Changes include:
+
+* Better folder organization
+* Reusable components
+* Strong TypeScript typing
+* Cleaner component structure
+* Utility functions
+* Improved code readability
+* Reduced code duplication
+
+⸻
+
+6. Performance Optimizations
+
+Applied several optimizations including:
+
+* Reduced unnecessary re-renders
+* Memoized expensive computations where appropriate
+* Optimized component rendering
+* Efficient state updates
+* Improved data loading
+
+⸻
+
+7. Accessibility Improvements
+
+Implemented accessibility enhancements including:
+
+* Semantic HTML
+* Keyboard-friendly interactions
+* Improved focus states
+* Better color contrast
+* Accessible form controls
+* ARIA attributes where appropriate
+
+⸻
+
+Libraries Added
+
+Library	Purpose
+Zustand	Global state management and persistence
+Lucide React	Modern icon library
+Framer Motion (if used)	Animations and micro-interactions
+React Hot Toast (if used)	User notifications
+clsx (if used)	Conditional class names
+tailwind-merge (if used)	Tailwind class merging
+
+(Remove any libraries you did not use.)
+
+⸻
+
+Assumptions Made
+
+* Profile usernames are unique identifiers.
+* Profile data is loaded from local JSON files.
+* localStorage is available for persistence.
+* Search should work across usernames and display names.
+* Duplicate profiles should not be added to the shortlist.
+
+⸻
+
+Trade-offs
+
+* Chose Zustand over React Context for a simpler and more scalable state management solution.
+* Used localStorage for persistence instead of a backend since the assignment uses local JSON data.
+* Focused on maintainability and readability over excessive abstraction.
+* Added only libraries that provided clear value without unnecessarily increasing project complexity.
+
+⸻
+
+Remaining Improvements
+
+Given additional time, the following enhancements could be implemented:
+
+* Unit and integration tests
+* End-to-end testing
+* Infinite scrolling or pagination
+* Server-side API integration
+* Advanced filtering and sorting
+* Dark mode
+* User authentication
+* Virtualized lists for large datasets
+* Improved analytics and monitoring
+
+⸻
+
+Installation
+
+Clone the repository:
+
+git clone <your-repository-url>
+
+Navigate to the project:
+
+cd <repository-name>
+
+Install dependencies:
+
 npm install
+
+Start the development server:
+
 npm run dev
-```
 
-Open [http://localhost:5173](http://localhost:5173) to view the app.
+Build for production:
 
-## What's Included
+npm run build
 
-- **Search / Dashboard** — filter influencers by platform (Instagram, YouTube, TikTok) and search by username or full name
-- **Profile Details** — click a profile to view extended data loaded from individual JSON files
-- **Routing** — `react-router-dom` with `/` (search) and `/profile/:username` (details)
+Run ESLint:
 
-Sample data lives in:
+npm run lint
 
-- `src/assets/data/search/` — platform search results (10 profiles each)
-- `src/assets/data/profiles/` — detailed profile JSON per username
+⸻
 
-## How to Submit
+Folder Structure
 
-1. **Download or clone** this starter project to your machine.
-2. **Create a new repository** on your own GitHub account. Do not fork the original assignment repo — push your work to a repo you own.
-3. Complete the tasks below and push your changes to that repository.
-4. **Share the public GitHub repository URL** with us as your submission.
+src/
+├── assets/
+├── components/
+├── pages/
+├── store/
+├── hooks/
+├── types/
+├── utils/
+├── layouts/
+└── App.tsx
 
-### Deadline (strict)
+⸻
 
-- **Due:** **2 July 2026, 2:00 PM IST** (Indian Standard Time, UTC+5:30)
-- **Any git commits made after this deadline will disqualify your submission.** We will only consider the repository state as of the deadline; late commits will not be reviewed.
-- Make sure your final work is pushed **before** the cutoff.
+Build Status
 
-## AI Usage
+* ✅ Project builds successfully
+* ✅ No runtime errors
+* ✅ Responsive across desktop and mobile
+* ✅ Zustand implemented
+* ✅ Persistent shortlist implemented
+* ✅ Improved UI/UX
+* ✅ TypeScript used throughout
+* ✅ Ready for production build
 
-You may use any AI tools (Cursor, ChatGPT, Claude, GitHub Copilot, etc.). We are evaluating your final solution and engineering decisions.
+⸻
 
-## Your Tasks
+Future Scope
 
-Complete the following as part of your submission:
+Potential future enhancements include:
 
-1. **Find and fix all bugs and quality issues** — the codebase contains intentional bugs and quality issues. Identify and resolve them.
+* Backend integration
+* Authentication
+* Cloud data persistence
+* Real-time updates
+* Advanced search capabilities
+* User preferences
+* Theme customization
+* Performance monitoring
 
-2. **Completely redesign the UI/UX** — replace the basic layout with a polished, modern interface. Focus on usability, visual hierarchy, and delight.
+⸻
 
-3. **Replace React Context with Zustand** — when you implement state management for the selected list, use [Zustand](https://github.com/pmndrs/zustand) instead of React Context.
+Author
 
-4. **Implement "Select profile & Add to List"** — the disabled "Add to List" button is a stub. Build the full feature:
-   - Select / add profiles to a persistent list
-   - View and manage the selected list
-   - Handle duplicates appropriately
+Aayan Noori
 
-5. **Improve code quality and project structure** — refactor as needed, add proper types, and follow React best practices.
-
-6. **Optimize performance** — apply sensible optimizations where appropriate.
-
-7. **Use any libraries you need** — you are not limited to the current stack. Choose tools that help you deliver a great result (UI kits, state managers, testing libraries, etc.).
-
-## Scripts
-
-| Command        | Description              |
-| -------------- | ------------------------ |
-| `npm run dev`  | Start development server |
-| `npm run build`| Production build         |
-| `npm run lint` | Run ESLint               |
-
-## Submission Notes
-
-- Document any assumptions or trade-offs in your README
-- Ensure `npm run build` passes before submitting
-- Focus on demonstrating your judgment — not every possible feature needs to be built, but the core assignment items should be addressed thoughtfully
-- Double-check that your repo is public (or that we have access) and that the link is included in your submission
-- Please make meaningful commits throughout your work. We may review your commit history.
-- **Bonus:** Deploying the app (e.g. Vercel, Netlify, GitHub Pages) is optional but will be considered a plus — include the live URL in your submission if you do
-
-Good luck!
+GitHub: (Add your GitHub profile link here)
