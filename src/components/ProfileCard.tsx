@@ -1,57 +1,117 @@
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { BookmarkPlus, BookmarkCheck } from "lucide-react";
+import toast from "react-hot-toast";
 import type { Platform, UserProfileSummary } from "@/types";
 import { VerifiedBadge } from "./VerifiedBadge";
+import { formatFollowers, formatEngagementRate } from "@/utils/formatters";
+import { useShortlistStore } from "@/store/shortlistStore";
+import { cn } from "@/utils/cn";
 
 interface ProfileCardProps {
   profile: UserProfileSummary;
   platform: Platform;
-  searchQuery: string;
-  onProfileClick?: (username: string) => void;
 }
 
-function formatFollowersLocal(count: number) {
-  if (count >= 1000000) return (count / 1000000).toFixed(1) + "M followers";
-  if (count >= 1000) return (count / 1000).toFixed(0) + "K followers";
-  return count + " followers";
-}
-
-export function ProfileCard({
+export const ProfileCard = memo(function ProfileCard({
   profile,
   platform,
-  searchQuery,
-  onProfileClick,
 }: ProfileCardProps) {
   const navigate = useNavigate();
+  const { addProfile, removeProfile, isInShortlist } = useShortlistStore();
+  const inShortlist = isInShortlist(profile.user_id);
 
-  const handleClick = () => {
-    if (onProfileClick) onProfileClick(profile.username);
+  const handleCardClick = useCallback(() => {
     navigate(`/profile/${profile.username}?platform=${platform}`);
-  };
+  }, [navigate, profile.username, platform]);
+
+  const handleShortlistToggle = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (inShortlist) {
+        removeProfile(profile.user_id);
+        toast("Removed from shortlist", { icon: "🗑️" });
+      } else {
+        const added = addProfile({
+          user_id: profile.user_id,
+          username: profile.username,
+          fullname: profile.fullname,
+          picture: profile.picture,
+          is_verified: profile.is_verified,
+          followers: profile.followers,
+          platform,
+          engagement_rate: profile.engagement_rate,
+        });
+        if (added) {
+          toast.success(`@${profile.username} added to shortlist`);
+        } else {
+          toast("Already in shortlist", { icon: "ℹ️" });
+        }
+      }
+    },
+    [inShortlist, addProfile, removeProfile, profile, platform]
+  );
 
   return (
-    <div
-      onClick={handleClick}
-      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-[700px]"
-      data-search={searchQuery}
+    <article
+      className="group bg-white border border-gray-100 rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:border-violet-200 hover:shadow-md transition-all duration-150 focus-within:ring-2 focus-within:ring-violet-500"
+      onClick={handleCardClick}
     >
-      <img src={profile.picture} className="w-12 h-12 rounded-full" />
-      <div className="text-left flex-1">
-        <div className="font-bold">
-          @{profile.username}
+      {/* Avatar */}
+      <div className="relative flex-shrink-0">
+        <img
+          src={profile.picture}
+          alt={profile.fullname}
+          className="w-12 h-12 rounded-full object-cover bg-gray-100"
+          loading="lazy"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src =
+              `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.fullname)}&background=7c3aed&color=fff&size=48`;
+          }}
+        />
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0 text-left">
+        <div className="flex items-center gap-1.5 mb-0.5">
+          <span className="font-semibold text-gray-900 text-sm truncate">
+            @{profile.username}
+          </span>
           <VerifiedBadge verified={profile.is_verified} />
         </div>
-        <div className="text-sm text-gray-600">{profile.fullname}</div>
-        <div className="text-sm">{formatFollowersLocal(profile.followers)}</div>
+        <div className="text-sm text-gray-500 truncate">{profile.fullname}</div>
+        <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
+          <span>{formatFollowers(profile.followers)} followers</span>
+          {profile.engagement_rate !== undefined && (
+            <>
+              <span aria-hidden>·</span>
+              <span>{formatEngagementRate(profile.engagement_rate)} ER</span>
+            </>
+          )}
+        </div>
       </div>
-      {/* TODO: candidates must implement Add to List feature */}
-      {/* TODO: candidates must implement Add to List feature */}
+
+      {/* Shortlist button */}
       <button
-        disabled
-        className="px-3 py-1 bg-gray-300 text-gray-500 text-sm rounded cursor-not-allowed"
-        onClick={(e) => e.stopPropagation()}
+        onClick={handleShortlistToggle}
+        aria-label={
+          inShortlist
+            ? `Remove @${profile.username} from shortlist`
+            : `Add @${profile.username} to shortlist`
+        }
+        className={cn(
+          "flex-shrink-0 p-2 rounded-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500",
+          inShortlist
+            ? "bg-violet-100 text-violet-600 hover:bg-violet-200"
+            : "bg-gray-50 text-gray-400 hover:bg-violet-50 hover:text-violet-500 opacity-0 group-hover:opacity-100"
+        )}
       >
-        Add to List
+        {inShortlist ? (
+          <BookmarkCheck className="w-4 h-4" aria-hidden />
+        ) : (
+          <BookmarkPlus className="w-4 h-4" aria-hidden />
+        )}
       </button>
-    </div>
+    </article>
   );
-}
+});

@@ -12,6 +12,7 @@ export interface UserProfileSummary {
   engagement_rate?: number;
   handle?: string;
   avg_views?: number;
+  account_type?: string | number;
 }
 
 export interface SearchAccount {
@@ -44,4 +45,15 @@ export interface ProfileDetailResponse {
     success: boolean;
     user_profile: FullUserProfile;
   };
+}
+
+export interface ShortlistProfile {
+  user_id: string;
+  username: string;
+  fullname: string;
+  picture: string;
+  is_verified: boolean;
+  followers: number;
+  platform: Platform;
+  engagement_rate?: number;
 }
