@@ -11,6 +11,6 @@ export default defineConfig({
     },
   },
   preview: {
-    allowedHosts: ["all"],
-  },
+  allowedHosts: ["wobb-assignment.onrender.com"],
+},
 });
